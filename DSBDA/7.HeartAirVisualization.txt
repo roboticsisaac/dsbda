@@ -1,0 +1,48 @@
+import pandas as pd #Python library used for working with data sets
+import numpy as np #Python library used for working with arrays
+import seaborn as sn # library for making statistical graphics in Python
+import matplotlib.pyplot as plt
+<<<<>>>>>>>>
+
+df2=pd.read_csv('heart.csv')
+df2
+<<<<>>>>>>>>
+
+import matplotlib.pyplot as plt
+plt.figure(figsize=(10, 6))
+plt.subplot(2, 2, 1) # Create a subplot (2 rows, 2 columns, subplot 1)
+plt.hist(df2['age'], bins=10, edgecolor='k') 
+plt.xlabel('Age')
+plt.ylabel('Frequency') 
+plt.title('Age Distribution')
+plt.show()
+<<<<.>>>>>>
+
+# Bar plot of sex
+plt.subplot(2, 2, 2) # Create a subplot (2 rows, 2 columns, subplot 2)
+sex_counts = df2['sex'].value_counts() 
+plt.bar(sex_counts.index, sex_counts.values) 
+plt.xlabel('Sex (0 = female, 1 = male)') 
+plt.ylabel('Count')
+plt.title('Gender Distribution')
+<<<<<>>>>>
+
+
+# Scatter plot of age and cholesterol
+plt.subplot(2, 2, 3) # Create a subplot (2 rows, 2 columns, subplot 3)
+plt.scatter(df2['age'], df2['chol'], alpha=0.5)
+plt.xlabel('Age')
+plt.ylabel('Cholesterol') 
+plt.title('Age vs. Cholesterol')
+
+
+# Box plot of resting blood pressure by target
+plt.subplot(2, 2, 4) # Create a subplot (2 rows, 2 columns, subplot 4)
+plt.boxplot([df2[df2['output'] == 0]['trtbps'], 
+             df2[df2['output'] == 1]['trtbps']],
+            labels=['No Disease', 'Disease'])
+plt.xlabel('Target') 
+plt.ylabel('Resting Blood Pressure')
+plt.title('Resting Blood Pressure by Target')
+plt.tight_layout() # Adjust the spacing between subplots
+plt.show() # Display the plots
