@@ -1,0 +1,76 @@
+import pandas as pd
+import numpy as np 
+import seaborn as sn 
+import random as rn 
+import matplotlib.pyplot as mat 
+from sklearn.model_selection import train_test_split 
+from sklearn.naive_bayes import GaussianNB,MultinomialNB
+from sklearn.metrics import accuracy_score 
+
+DataFrame1=pd.read_csv('heart.csv') 
+DataFrame1
+
+
+DataFrame2=pd.read_csv('AirQuality.csv',sep=';') 
+DataFrame2
+
+DataFrame1.isna().sum().sum()
+
+DataFrame2.isna().sum().sum()
+
+DataFrame2.dtypes
+
+
+#data transformation
+DataFrame1.loc[DataFrame1['sex']==1,'sex']='M' #Replacing 1 with M
+DataFrame1.loc[DataFrame1['sex']==0,'sex']='F' #Replacing 0 with F
+DataFrame1.head()
+
+
+from sklearn.preprocessing import LabelEncoder
+labelencoder=LabelEncoder()
+DataFrame1["sex"]=labelencoder.fit_transform(DataFrame1["sex"])
+DataFrame1 #used to encode categorical variables into numerical labels
+
+
+#error correction
+DataFrame1.fillna(DataFrame1.mean(), inplace=True)
+
+DataFrame1.drop_duplicates(inplace=True)
+DataFrame2.drop_duplicates(inplace=True)
+
+DataFrame2['Date'] = pd.to_datetime(DataFrame2['Date'], errors='coerce', dayfirst=True)
+DataFrame2
+
+#model building using LogisticRegression
+from sklearn.model_selection import train_test_split
+X = DataFrame1.drop('output', axis=1)
+y = DataFrame1['output']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+model = LogisticRegression()
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+print(f'Accuracy: {accuracy:.2f}')
+
+
+
+#model building using GaussianNB classification technique
+
+X_train, X_test, y_train, y_test = train_test_split(DataFrame1.iloc[:,:-1],
+                                                    DataFrame1.iloc[:,-1], test_size = 0.3, random_state = 0)
+
+X_train.shape, X_test.shape,y_train.shape,y_test.shape
+
+gnb = GaussianNB()
+
+gnb.fit(X_train, y_train)
+
+y_pred = gnb.predict(X_test)
+y_pred
+
+print('Model accuracy score: {0:0.4f}'. format(accuracy_score(y_test, y_pred)))
