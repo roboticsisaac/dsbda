@@ -58,3 +58,8 @@ plt.figure(figsize=(12, 8))
 sns.heatmap(corr, annot=True, cmap='coolwarm', fmt='.2f', linewidths=0.5)
 plt.title('Correlation Heatmap')
 plt.show()
+
+# Pairplot for selected columns
+sns.pairplot(df[['Page total likes', 'Lifetime Post Total Reach', 'Lifetime Post Total Impressions', 'Lifetime Post Consumers']])
+plt.suptitle('Pairwise Relationships between Variables', y=1.02)
+plt.show()
