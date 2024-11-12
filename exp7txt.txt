@@ -1,0 +1,66 @@
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+import numpy as np
+
+df_heart = pd.read_csv("heart.csv")
+df_heart
+
+
+# Plot the distribution of age
+plt.figure(figsize=(10, 6))
+sns.histplot(df_heart['age'], kde=True, color='blue', bins=20)
+plt.title('Age Distribution of Heart Disease Patients')
+plt.xlabel('Age')
+plt.ylabel('Frequency')
+plt.show()
+
+# Calculate correlation matrix for numerical columns
+corr_heart = df_heart.corr()
+
+# Plot the correlation matrix
+plt.figure(figsize=(12, 8))
+sns.heatmap(corr_heart, annot=True, cmap='coolwarm', fmt='.2f', linewidths=0.5)
+plt.title('Correlation Heatmap for Heart Disease Dataset')
+plt.show()
+
+
+plt.figure(figsize=(8, 6))
+sns.boxplot(x='output', y='chol', data=df_heart, palette='Set2')
+plt.title('Cholesterol Distribution by Heart Disease Diagnosis')
+plt.xlabel('Heart Disease (0: No, 1: Yes)')
+plt.ylabel('Cholesterol Level')
+plt.show()
+
+
+sns.pairplot(df_heart[['age', 'chol', 'thalachh', 'oldpeak', 'output']], hue='output')
+plt.title('Pairplot of Key Features in Heart Disease Dataset')
+plt.show()
+
+
+df3=pd.read_csv('AirQuality.csv', sep=';')
+df3.head()
+
+# Scatter plot of NOx(GT) vs. NO2(GT)
+plt.subplot(2, 2, 2)  # Create a subplot (2 rows, 2 columns, subplot 2)
+plt.scatter(df3['NOx(GT)'], df3['NO2(GT)'], alpha=0.5)
+plt.xlabel('NOx(GT)')
+plt.ylabel('NO2(GT)')
+plt.title('NOx(GT) vs. NO2(GT)')
+
+# Scatter plot of NO2(GT) vs. PT08.S4(NO2)
+plt.subplot(2, 2, 4)  # Create a subplot (2 rows, 2 columns, subplot 4)
+plt.scatter(df3['NO2(GT)'], df3['PT08.S4(NO2)'], alpha=0.5)
+plt.xlabel('NO2(GT)')
+plt.ylabel('PT08.S4(NO2)')
+plt.title('NO2(GT) vs. PT08.S4(NO2)')
+
+plt.tight_layout()  # Adjust the spacing between subplots
+plt.show()  # Display the plots
+
+# Scatter plot of PT08.S1(CO) vs. PT08.S2(NMHC)
+plt.subplot(2, 2, 2)  # Create a subplot (2 rows, 2 columns, subplot 2)
+plt.scatter(df3['PT08.S1(CO)'], df3['PT08.S2(NMHC)'], alpha=0.5)
+plt.xlabel('PT08.S1(CO)')
+plt.ylabel('PT08.S2(NMHC)')
+plt.title('PT08.S1(CO) vs. PT08.S2(NMHC)')
