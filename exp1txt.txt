@@ -1,0 +1,29 @@
+import pandas as pd
+
+df = pd.read_csv('dataset_Facebook.csv',delimiter=';')
+df
+
+df.describe()
+
+df.sort_values(by=['Page total likes'],ascending=False)
+
+subset_df = df[["Page total likes", "Type", "Category", "Post Month", "Post Weekday", "Post Hour", "Paid"]]
+subset_df2=subset_df.head(10)
+subset_df2
+
+subset_df2_transposed = subset_df2.T
+subset_df2_transposed
+
+
+subset_df2
+
+subset_df2.shape
+
+pivot_df = subset_df2.pivot_table(index="Category", columns="Type", values="Page total likes", aggfunc="mean")
+pivot_df
+
+
+melted_df = pivot_df.reset_index().melt(id_vars="Category", 
+                                        var_name="Type", 
+                                        value_name="Average Page total likes")
+melted_df
