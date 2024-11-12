@@ -1,0 +1,16 @@
+import pandas as pd
+
+df = pd.read_csv('dataset_Facebook.csv',delimiter=';')
+df
+
+subset1 = df[["Page total likes", "Type", "Category", "Post Month", "Post Weekday", "Post Hour", "Paid"]]
+subset2=  df[["Lifetime Post Total Reach", "Lifetime Post Total Impressions", "Lifetime Engaged Users",]]
+
+subset1.head(5)
+print()
+subset2.head(5)
+
+merged_df = pd.merge(subset1, subset2, left_index=True, right_index=True)
+merged_df.head()
+
+merged_df.sort_values(by=['Post Weekday'],ascending=False)
